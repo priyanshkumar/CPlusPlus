@@ -1,0 +1,4 @@
+﻿  Program.cpp
+z:\c++\finalproject\finalproject\program.cpp(102): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(63): warning C4101: 'cid': unreferenced local variable
+  FinalProject.vcxproj -> Z:\C++\FinalProject\Debug\FinalProject.exe
