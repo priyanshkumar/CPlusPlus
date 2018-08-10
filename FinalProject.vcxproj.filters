@@ -26,9 +26,6 @@
     <ClInclude Include="CollegeI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Programme.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -5,7 +5,6 @@
 #include < stdlib.h >
 #include "StudentPI.h"
 #include "CollegeI.h"
-#include "Programme.h"
 
 using namespace std;
 
@@ -30,13 +29,102 @@ void get_input(const string question, T &input)
 	}
 }
 
+struct Subject{
+	vector<string> subject;
+	int sid;
+
+	void OutputSubject()
+	{
+
+		if (!subject.empty())
+		{
+			cout << "\n\n\t\t-----------------Subjects Enroled-----------------\n" << endl;
+			for (int i = 0; i < subject.size(); i++)
+			{
+				cout << "\t\t\t subject: " << subject[i] << endl;
+			}
+			cout << "\n\t\t-----------------**********-----------------\n" << endl;
+		}
+		else {
+			cout << " \t\t--No Subject Available Yet-- " << endl;
+			cout << "\n\t\t-----------------**********-----------------\n" << endl;
+		}
+	}
+
+	void ADD_Subject(vector<string> sub) {
+		string subjects;
+		for (int i = 0; i < sub.size(); i++) {
+			subjects = sub[i];
+			subject.push_back(subjects);
+		}
+	}
+	void Set_Subject(string subjects, int n) {
+			subject[n] = subjects;
+		
+	}
+	string Get_Subject(int n) {
+		return subject[n];
+	}
+	int Vector_Size() {
+		return subject.size();
+	}
+};
+
+struct Grade {
+	vector <float> grade;
+	int gid;
+
+	void OutputGrade(vector<Subject> subject, int n)
+	{
+
+		if (!grade.empty())
+		{
+			
+			cout << "\n\n\t\t-----------------Grades Available-----------------\n" << endl;
+			for (int i = 0; i < grade.size(); i++)
+			{
+				cout << "\t\t\t  Grades For Subject '" << subject[n].Get_Subject(i) << "' is: "<<grade[i] << endl;
+			}
+			cout << "\n\t\t-----------------**********-----------------\n" << endl;
+		}
+		else {
+			cout << " --No Grades Available Yet-- " << endl;
+			cout << "\n\t\t-----------------**********-----------------\n" << endl;
+		}
+	}
+
+	void Set_Grade(vector<float> gra) {
+		float grades;
+		for (int i = 0; i < gra.size(); i++) {
+			grades = gra[i];
+			grade.push_back(grades);
+		}
+	}
+	void Set_Gra(float grades, int n) {
+		grade[n] = grades;
+
+	}
+	float Get_Grade(int n) {
+		return grade[n];
+	}
+	
+	int GradeVector_Size() {
+		return grade.size();
+	}
+	
+};
+
+
+
 void Get_Menu2() {
 cout << "\n\n\n\n\n\t\t\t\t\t-----------------Hey, What You are up to-----------------\n" << endl;
 cout << "\t\t\t\t\t\t    Press '1' : Edit Student" << endl;
-cout << "\t\t\t\t\t\t    Press '2' : ADD Subjects" << endl;
+cout << "\t\t\t\t\t\t    Press '2' : Add Subjects" << endl;
 cout << "\t\t\t\t\t\t    Press '3' : Edit Subjects " << endl;
-cout << "\t\t\t\t\t\t	 Press '4' : Student Information " << endl;
-cout << "\t\t\t\t\t\t	 Press '5' : Exit " << endl;
+cout << "\t\t\t\t\t\t    Press '4' : Add Grade " << endl;
+cout << "\t\t\t\t\t\t    Press '5' : Edit Grade " << endl;
+cout << "\t\t\t\t\t	    Press '6' : Student Information " << endl;
+cout << "\t\t\t\t\t	    Press '7' : Exit " << endl;
 cout << "\n\t\t\t\t\t-----------------*****************-----------------\n" << endl; }
 
 void Get_Menu3() {
@@ -54,7 +142,8 @@ void Get_Menu3() {
 	cout << "\t\tPress '11' : Change College Name " << endl;
 	cout << "\t\tPress '12' : Change Course 'Full Time' or 'Part Time'" << endl;
 	cout << "\t\tPress '13' : Change Campus " << endl;
-	cout << "\t\tPress '14' : Exit " << endl;
+	cout << "\t\tPress '14' : Change Programme " << endl;
+	cout << "\t\tPress '15' : Exit " << endl;
 	cout << "\n\t\t-----------------*****************-----------------\n" << endl;
 }
 
@@ -62,6 +151,9 @@ int main() {
 
 	vector<StudentPI> students;
 	vector<CollegeI> colleges;
+	vector<Subject> subjectVector;
+	vector<Grade> gradeVector;
+	vector<string> grades;
 	int id, menu1, menu2, menu3;
 	char count = 'y';
 	char Menu1 = 'y';
@@ -94,7 +186,7 @@ int main() {
 					string firstName, lastName, DOB, gender;
 					string email, address, city, provience, postalCode;
 					int phone, id;
-					string cName, course, campus;
+					string cName, course, campus, Program;
 					cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
 					get_input("Enter the ID as minimum of 8 number: ", id);
 					cout << "\t\t-----------------**********-----------------\n" << endl;
@@ -120,11 +212,12 @@ int main() {
 					get_input("Enter the College Name: ", cName);
 					get_input("Enter the Course: ", course);
 					get_input("Enter the Campus", campus);
+					get_input("Enter the Programme", Program);
 					cout << "\t\t-----------------**********-----------------\n" << endl;
 
 					system("CLS");
 				
-					CollegeI college(cName, course, campus, id);
+					CollegeI college(cName, course, campus, Program, id);
 					colleges.push_back(college);
 					StudentPI student(firstName, lastName, DOB, gender, email, phone, address, city, provience, postalCode, id);
 					students.push_back(student);
@@ -136,21 +229,23 @@ int main() {
 				system("CLS");
 				break;
 			}
-			case 2: {
-				char checkMenu2 = 'y';
-				cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
-				get_input("\t\t\t\t\tPlease enter the student id", id);
-				cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
-				system("CLS");
-				while (checkMenu2 == 'y' || checkMenu2 == 'Y') {
-					for (int i = 0; i < students.size(); i++) {
-						if (students[i].Get_ID() == id && colleges[i].Get_Cid()) {
-							Get_Menu2();
-						
-							get_input("\t\t\t\t\t\t   Please enter the input: ", menu2);
-							system("CLS");
+			case 2:  
+			{
+				if (!students.empty()) {
+					char checkMenu2 = 'y';
+					cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+					get_input("\t\t\t\t\tPlease enter the student id", id);
+					cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+					system("CLS");
+					while (checkMenu2 == 'y' || checkMenu2 == 'Y') {
+						for (int i = 0; i < students.size(); i++) {
+							if (students[i].Get_ID() == id && colleges[i].Get_Cid()) {
+								Get_Menu2();
 
-							switch (menu2) {
+								get_input("\t\t\t\t\t\t   Please enter the input: ", menu2);
+								system("CLS");
+
+								switch (menu2) {
 								case 1: {
 									char checkMenu3 = 'y';
 
@@ -165,161 +260,359 @@ int main() {
 										system("CLS");
 
 										switch (menu3) {
-											case 1: {
-												string FirstName;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\t\t\tEnter the First Name: ", FirstName);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+										case 1: {
+											string FirstName;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\t\t\tEnter the First Name: ", FirstName);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_FirstName(FirstName);
-												system("CLS");
-												break;
-											}
-											case 2: {
-												string LastName;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the last Name: ", LastName);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_FirstName(FirstName);
+											system("CLS");
+											break;
+										}
+										case 2: {
+											string LastName;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the last Name: ", LastName);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_LastName(LastName);
-												system("CLS");
-												break;
-											}
-											case 3: {
-												string DOB;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Date Of Birth in Format dd/mm/yyyy: ", DOB);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
-												students[i].Set_DateOB(DOB);
-												system("CLS");
-												break;
-											}
-											case 4: {
-												string gender;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Gender F for(female) and M for(Male): ", gender);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_LastName(LastName);
+											system("CLS");
+											break;
+										}
+										case 3: {
+											string DOB;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Date Of Birth in Format dd/mm/yyyy: ", DOB);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_DateOB(DOB);
+											system("CLS");
+											break;
+										}
+										case 4: {
+											string gender;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Gender F for(female) and M for(Male): ", gender);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_Gender(gender);
-												system("CLS");
-												break;
-											}
-											case 5: {
-												string email;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Email: ", email);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_Gender(gender);
+											system("CLS");
+											break;
+										}
+										case 5: {
+											string email;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Email: ", email);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_Email(email);
-												system("CLS");
-												break;
-											}
-											case 6: {
-												int phone;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Phone Number in form xxx-xxx-xxxx", phone);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_Email(email);
+											system("CLS");
+											break;
+										}
+										case 6: {
+											int phone;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Phone Number in form xxx-xxx-xxxx", phone);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_Phone(phone);
-												system("CLS");
-												break;
-											}
-											case 7: {
-												string address;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Address: ", address);	
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_Phone(phone);
+											system("CLS");
+											break;
+										}
+										case 7: {
+											string address;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Address: ", address);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_Address(address);
-												break;
-											}
-											case 8: {
-												string city;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the City: ", city);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_Address(address);
+											break;
+										}
+										case 8: {
+											string city;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the City: ", city);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_City(city);
-												break;
-											}
-											case 9: {
-												string provience;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Provience: ", provience);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
-												students[i].Set_Provience(provience);
-												system("CLS");
-												break;
-											}
-											case 10: {
-												string postalCode;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Postal Code: ", postalCode);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_City(city);
+											break;
+										}
+										case 9: {
+											string provience;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Provience: ", provience);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_Provience(provience);
+											system("CLS");
+											break;
+										}
+										case 10: {
+											string postalCode;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Postal Code: ", postalCode);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												students[i].Set_PostalCode(postalCode);
-												system("CLS");
-												break;
-											}
-											case 11: {
-												string cName;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the College Name: ", cName);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											students[i].Set_PostalCode(postalCode);
+											system("CLS");
+											break;
+										}
+										case 11: {
+											string cName;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the College Name: ", cName);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												colleges[i].Set_CName(cName);
-												system("CLS");
-												break;
-											}
-											case 12: {
-												string course;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Course: ", course);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											colleges[i].Set_CName(cName);
+											system("CLS");
+											break;
+										}
+										case 12: {
+											string course;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Course: ", course);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												colleges[i].Set_Course(course);
-												system("CLS");
-												break;
-											}
-											case 13: {
-												string campus;
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tEnter the Campus", campus);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
-												colleges[i].Set_Campus(campus);
-												system("CLS");
-												break;
-											}
-											case 14: {
-												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-												get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu3);
-												cout << "\t\t-----------------**********-----------------\n" << endl;
+											colleges[i].Set_Course(course);
+											system("CLS");
+											break;
+										}
+										case 13: {
+											string campus;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Campus", campus);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											colleges[i].Set_Campus(campus);
+											system("CLS");
+											break;
+										}
+										case 14: {
+											string program;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the Programme : ", program);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											colleges[i].Set_Programme(program);
+											system("CLS");
+											break;
+										}
+										case 15: {
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu3);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
 
-												system("CLS");
-												break;
-											}
-											default: {
-												break;
-											}
+											system("CLS");
+											break;
+										}
+										default: {
+											break;
+										}
 										}
 									}
 									break;
 								}
 								case 2: {
+									int ct;
+									if (subjectVector.empty()) {
+										ct = 0;
+									}
+									else {
+										ct = subjectVector.size();
+									}
+									if (i == ct) {
+										string subject;
+										vector<string> subjects;
+										char checksub = 'y';
+										while (checksub == 'y' || checksub == 'Y') {
+											cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter Subject :", subject);
+											cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+											subjects.push_back(subject);
+
+											get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub);
+											system("CLS");
+										}
+										Subject sub{ subjects, id };
+										subjectVector.push_back(sub);
+									}
+									else {
+										char checksub1 = 'y';
+										string subject1;
+										vector<string> subjects1;
+										while (checksub1 == 'y' || checksub1 == 'Y') {
+											cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter Subject :", subject1);
+											cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+											subjects1.push_back(subject1);
+
+											get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub1);
+											system("CLS");
+										}
+										subjectVector[i].ADD_Subject(subjects1);
+										system("CLS");
+									}
+									system("CLS");
 									break;
 								}
 								case 3: {
+									int getinput;
+									cout << "\t\t-----------------*****************-----------------\n" << endl;
+									int n = 0;
+									for (n; n < subjectVector[i].Vector_Size(); n++) {
+										cout << "Press " << n + 1 << ": to change subject: (" << subjectVector[i].Get_Subject(n) << ")" << endl;
+									}
+									cout << "Press " << n + 1 << " Exit: " << endl;
+									cout << "\t\t-----------------*****************-----------------\n" << endl;
+									get_input("\t\tEnter The Input", getinput);
+
+
+									int j = 0;
+									for (j; j < subjectVector[i].Vector_Size(); j++) {
+										if (getinput == j + 1) {
+											string subject;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the subject : ", subject);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											subjectVector[i].Set_Subject(subject, j);
+											system("CLS");
+										}
+									}
+									if (getinput == j + 1) {
+										cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu2);
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										system("CLS");
+									}
+									system("CLS");
 									break;
 								}
 								case 4: {
+									if (!subjectVector.empty()) {
+										int ct;
+										if (gradeVector.empty()) {
+											ct = 0;
+										}
+										else {
+											ct = gradeVector.size();
+										}
+										
+										if (i == ct) {
+											vector<float> grades;
+											float grade;
+											char checkgra = 'y';
+
+											for (int n = 0; n < subjectVector[i].Vector_Size(); n++) {
+												cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+												cout << "\t\tWould you like to add Grade for Subject 'Y' or 'N': (" << subjectVector[i].Get_Subject(n) <<")"<< endl;
+												cin >> checkgra;
+
+												if (checkgra == 'y' || checkgra == 'Y') {
+													get_input("\t\tEnter the grade : ", grade);
+													cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+													grades.push_back(grade);
+												}
+												else {
+													grade = 0;
+													grades.push_back(grade);
+												}
+											}
+											Grade gra{ grades, id };
+											gradeVector.push_back(gra);
+											system("CLS");
+										}
+										else {
+											vector<float> grades1;
+											float grade1;
+											char checkgra1 = 'y';
+											
+											int n = 0;
+											int gradeSize, subjectSize, useSize;
+											gradeSize = gradeVector[i].GradeVector_Size();
+											subjectSize = subjectVector[i].Vector_Size();
+											useSize = subjectSize - gradeSize;
+											if (gradeSize == subjectSize) {
+												cout << "\t\t-----------------**********-----------------\n" << endl;
+												cout << "\t\tGrades already Available! Please go to Edit Grades to Change!\n" << endl;
+												cout << "\t\t-----------------**********-----------------\n" << endl;
+												get_input("\t\tPress any Key and Enter to continue!", inpt);
+											}
+											else {												
+												for (int n = 0; n < useSize; n++) {
+													cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+													int p = gradeSize + n;
+													cout << "\t\tWould you like to add Grade for Subject 'Y' or 'N': (" << subjectVector[i].Get_Subject(p) <<")"<< endl;
+													cin >> checkgra1;
+
+													if (checkgra1 == 'y' || checkgra1 == 'Y') {
+														get_input("\t\tEnter the grade : ", grade1);
+														cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+														grades1.push_back(grade1);		
+													}
+													else {
+														grade1 = 0.0;
+														grades1.push_back(grade1);
+														cout << "\n grades vector : " << grades1[0] << endl;
+													}
+													}
+												gradeVector[i].Set_Grade(grades1);
+												system("CLS");
+											}
+										}
+									}
+									else {
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										cout << "\t\tNo subjects available! Please enter one First!\n" << endl;
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tPress any Key and Enter to continue!", inpt);
+									}
+									break;
+								}
+								case 5: {
+									int getinput;
+									cout << "\t\t-----------------*****************-----------------\n" << endl;
+									int n = 0;
+									for (n; n < gradeVector[i].GradeVector_Size(); n++) {
+										cout << "\t\tPress " << n + 1 << ": to change Grade: '" <<gradeVector[i].Get_Grade(n) <<"' For Subject: ("<< subjectVector[i].Get_Subject(n) << ")" << endl;
+									}
+									cout << "\t\tPress " << n + 1 << " Exit: " << endl;
+									cout << "\t\t-----------------*****************-----------------\n" << endl;
+									get_input("\t\tEnter The Input", getinput);
+
+
+									int j = 0;
+									for (j; j < gradeVector[i].GradeVector_Size(); j++) {
+										if (getinput == j + 1) {
+											float grade;
+											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+											get_input("\t\tEnter the grade : ", grade);
+											cout << "\t\t-----------------**********-----------------\n" << endl;
+											gradeVector[i].Set_Gra(grade, j);
+											system("CLS");
+										}
+									}
+									if (getinput == j + 1) {
+										cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu2);
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										system("CLS");
+									}
+									system("CLS");
+									break;
+								}
+								case 6: {
 									cout << "\t\t------------------Information On " << students[i].Get_FirstName() << "------------------\n" << endl;
 									students[i].OutputStudent();
-									colleges[i].OutputCollege(); 
+									colleges[i].OutputCollege();
+									if (!subjectVector.empty()) {
+										subjectVector[i].OutputSubject();
+									}
+									if (!gradeVector.empty()) {
+										gradeVector[i].OutputGrade(subjectVector, i);
+									}
+
 									get_input("\n\t\t    Press Y to continue", inpt);
 									break;
 									system("CLS");
 								}
-								case 5: {
+								case 7: {
 									cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
 									get_input("\t\tDo You WANT TO GO TO MENU2 'Y' or 'N'", checkMenu2);
 									cout << "\t\t-----------------**********-----------------\n" << endl;
@@ -328,11 +621,18 @@ int main() {
 								default: {
 									break;
 								}
+								}
 							}
 						}
+						cout << "No Such Student with ID '" << id << "' Found" << endl;
+						system("CLS");
 					}
-					cout << "No Such Student with ID '" << id << "' Found" << endl;
-					system("CLS");
+				}
+				else {
+					cout << "\t\t-----------------**********-----------------\n" << endl;
+					cout << "\t\tNo students available! Please enter one First!\n " << endl;
+					cout << "\t\t-----------------**********-----------------\n" << endl;
+					get_input("\t\tPress any Key and Enter to continue!", inpt);
 				}
 				system("CLS");
 				break;
@@ -465,15 +765,16 @@ void StudentPI::OutputStudent() {
 	cout << "\t\t\tCity: " << Get_City() << endl;
 	cout << "\t\t\tProvience:" << Get_Provience() << endl;
 	cout << "\t\t\tPostal Code: " << Get_PostalCode() << endl;
-	cout << "\t\t-----------------**********-----------------\n" << endl;
+	cout << "\n\t\t-----------------**********-----------------\n" << endl;
 }
 
 // college class
 // constructor 
-CollegeI::CollegeI(string CName, string Course, string Campus, int ID) {
+CollegeI::CollegeI(string CName, string Course, string Campus, string Program, int ID) {
 	Set_CName(CName);
 	Set_Course(Course);
 	Set_Campus(Campus);
+	Set_Programme(Program);
 	Set_Cid(ID);  
 
 }
@@ -513,6 +814,12 @@ string CollegeI::Get_Campus() {
 int CollegeI::Get_Cid() {
 	return cid;
 }
+void CollegeI::Set_Programme(string Programme) {
+	programme = Programme;
+}
+string CollegeI::Get_Programme() {
+	return programme;
+}
 
 //methods
 void CollegeI::OutputCollege() {
@@ -520,44 +827,6 @@ void CollegeI::OutputCollege() {
 	cout << "\t\t\tCollege Name: " << Get_CName() << endl;
 	cout << "\t\t\tCourse: " << Get_Course() << endl;
 	cout << "\t\t\tCampus: " << Get_Campus() << endl;
-	cout << "\t\t-----------------**********-----------------\n" << endl;
-}
-// Program Class
-
-// constructors
-Programme::Programme()
-{
-}
-
-// destructors
-Programme::~Programme()
-{
-}
-
-//setters
-void Programme::Set_Programme(string Programme) {
-	programme = Programme;
-}
-void Programme::Set_Subject(string Subject) {
-	subject = Subject;
-}
-void Programme::Set_Grade(float Grade) {
-	grade = Grade;
-}
-void Programme::Set_Pid(int ID) {
-	pid = ID;
-}
-
-// getters
-string Programme::Get_Programme() {
-	return programme;
-}
-string Programme::Get_Subject() {
-	return subject;
-}
-float Programme::Get_Grade() {
-	return grade;
-}
-int Programme::Get_Pid() {
-	return pid;
+	cout << "\t\t\tProgramme: " << Get_Programme() << endl;
+	cout << "\n\t\t-----------------**********-----------------\n" << endl;
 }

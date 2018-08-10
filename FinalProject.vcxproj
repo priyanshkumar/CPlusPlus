@@ -120,7 +120,6 @@
   <ItemGroup>
     <ClInclude Include="CollegeI.h" />
     <ClInclude Include="Program.h" />
-    <ClInclude Include="Programme.h" />
     <ClInclude Include="StudentPI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
