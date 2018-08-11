@@ -1,7 +1,10 @@
 ﻿  Program.cpp
 z:\c++\finalproject\finalproject\program.cpp(42): warning C4018: '<': signed/unsigned mismatch
-z:\c++\finalproject\finalproject\program.cpp(56): warning C4018: '<': signed/unsigned mismatch
-z:\c++\finalproject\finalproject\program.cpp(84): warning C4018: '<': signed/unsigned mismatch
-z:\c++\finalproject\finalproject\program.cpp(98): warning C4018: '<': signed/unsigned mismatch
-z:\c++\finalproject\finalproject\program.cpp(241): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(52): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(83): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(93): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(232): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(305): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(756): warning C4018: '<': signed/unsigned mismatch
+z:\c++\finalproject\finalproject\program.cpp(765): warning C4018: '<': signed/unsigned mismatch
   FinalProject.vcxproj -> Z:\C++\FinalProject\Debug\FinalProject.exe

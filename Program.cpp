@@ -41,12 +41,8 @@ struct Subject{
 			cout << "\n\n\t\t-----------------Subjects Enroled-----------------\n" << endl;
 			for (int i = 0; i < subject.size(); i++)
 			{
-				cout << "\t\t\t subject: " << subject[i] << endl;
+				cout << "\t\t\t subject " <<i+1<<": "<< subject[i] << endl;
 			}
-			cout << "\n\t\t-----------------**********-----------------\n" << endl;
-		}
-		else {
-			cout << " \t\t--No Subject Available Yet-- " << endl;
 			cout << "\n\t\t-----------------**********-----------------\n" << endl;
 		}
 	}
@@ -61,6 +57,9 @@ struct Subject{
 	void Set_Subject(string subjects, int n) {
 			subject[n] = subjects;
 		
+	}
+	void Delete_Subject(int n) {
+		subject.erase(subject.begin() + n);
 	}
 	string Get_Subject(int n) {
 		return subject[n];
@@ -83,12 +82,8 @@ struct Grade {
 			cout << "\n\n\t\t-----------------Grades Available-----------------\n" << endl;
 			for (int i = 0; i < grade.size(); i++)
 			{
-				cout << "\t\t\t  Grades For Subject '" << subject[n].Get_Subject(i) << "' is: "<<grade[i] << endl;
+				cout << "\t\t\t  Grade For Subject " <<i+1<< " is: "<<grade[i] << endl;
 			}
-			cout << "\n\t\t-----------------**********-----------------\n" << endl;
-		}
-		else {
-			cout << " --No Grades Available Yet-- " << endl;
 			cout << "\n\t\t-----------------**********-----------------\n" << endl;
 		}
 	}
@@ -102,7 +97,9 @@ struct Grade {
 	}
 	void Set_Gra(float grades, int n) {
 		grade[n] = grades;
-
+	}
+	void Delete_Grade(int n) {
+		grade.erase(grade.begin() + n);
 	}
 	float Get_Grade(int n) {
 		return grade[n];
@@ -121,10 +118,11 @@ cout << "\n\n\n\n\n\t\t\t\t\t-----------------Hey, What You are up to-----------
 cout << "\t\t\t\t\t\t    Press '1' : Edit Student" << endl;
 cout << "\t\t\t\t\t\t    Press '2' : Add Subjects" << endl;
 cout << "\t\t\t\t\t\t    Press '3' : Edit Subjects " << endl;
-cout << "\t\t\t\t\t\t    Press '4' : Add Grade " << endl;
-cout << "\t\t\t\t\t\t    Press '5' : Edit Grade " << endl;
-cout << "\t\t\t\t\t	    Press '6' : Student Information " << endl;
-cout << "\t\t\t\t\t	    Press '7' : Exit " << endl;
+cout << "\t\t\t\t\t\t    Press '4' : Delete Subjects " << endl;
+cout << "\t\t\t\t\t\t    Press '5' : Add Grade " << endl;
+cout << "\t\t\t\t\t\t    Press '6' : Edit Grade " << endl;
+cout << "\t\t\t\t\t	    Press '7' : Student Information " << endl;
+cout << "\t\t\t\t\t	    Press '8' : Exit " << endl;
 cout << "\n\t\t\t\t\t-----------------*****************-----------------\n" << endl; }
 
 void Get_Menu3() {
@@ -162,8 +160,7 @@ int main() {
 	cout << "\n\n\n\n\n\t\t\t\t\t-----------------***********-----------------\n" << endl;
 	cout << "\t\t\t\t\t.                  Welcome                  .\n" << endl;
 	cout << "\t\t\t\t\t-----------------***********-----------------\n\n" << endl;
-	cout << "\t\t\t\t\t\t     Press Y to continue" << endl;
-	cin >> inpt;
+	get_input("\t\tPress any Key and Enter to continue!", inpt); 
 
 	system("CLS");
 
@@ -173,62 +170,129 @@ int main() {
 		cout << "\n\n\n\n\n\t\t\t\t\t-----------------Hey, here is Menu-----------------\n" << endl;
 		cout << "\t\t\t\t\t\t  Press '1' : Add New Student"<<endl;
 		cout << "\t\t\t\t\t\tPress '2' : Student Information" << endl;
-		cout << "\t\t\t\t\t\t\tPress '3' : Exit " << endl;
+		cout << "\t\t\t\t\t\t  Press '3' : Delete Student " << endl;
+		cout << "\t\t\t\t\t\t\tPress '4' : Exit " << endl;
 		cout << "\n\t\t\t\t\t-----------------*****************-----------------\n" << endl;
 		get_input("\t\t\t\t\t\t   Please enter the input: ", menu1);
 		system("CLS");
 
 	
 			switch (menu1) {
-			case 1: {
-				count = 'y';
-				while (count == 'y' || count == 'Y') {
-					string firstName, lastName, DOB, gender;
+				case 1: {
+					string firstName, lastName, DOB, gender, gen;
 					string email, address, city, provience, postalCode;
 					int phone, id;
 					string cName, course, campus, Program;
+					char Match = 'M';
 					cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-					get_input("Enter the ID as minimum of 8 number: ", id);
-					cout << "\t\t-----------------**********-----------------\n" << endl;
-
-					system("CLS");
-
-					cout << "\n\n\t\t------------------PERSONAL INFORMATION------------------\n" << endl;
-					get_input("Enter the First Name: ", firstName);
-					get_input("Enter the last Name: ", lastName);
-					get_input("Enter the Date Of Birth in Format dd/mm/yyyy: ", DOB);
-					get_input("Enter the Gender F for(female) and M for(Male): ", gender);
-					get_input("Enter the Email: ", email);
-					get_input("Enter the Phone Number in form xxx-xxx-xxxx", phone);
-					get_input("Enter the Address: ", address);
-					get_input("Enter the City: ", city);
-					get_input("Enter the Provience: ", provience);
-					get_input("Enter the Postal Code: ", postalCode);
-					cout << "\t\t-----------------**********-----------------\n" << endl;
-
-					system("CLS");
-
-					cout << "\n\n\t\t------------------College Information------------------\n" << endl;
-					get_input("Enter the College Name: ", cName);
-					get_input("Enter the Course: ", course);
-					get_input("Enter the Campus", campus);
-					get_input("Enter the Programme", Program);
-					cout << "\t\t-----------------**********-----------------\n" << endl;
-
-					system("CLS");
-				
-					CollegeI college(cName, course, campus, Program, id);
-					colleges.push_back(college);
-					StudentPI student(firstName, lastName, DOB, gender, email, phone, address, city, provience, postalCode, id);
-					students.push_back(student);
-					cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-					get_input("\t\tWOULD YOU LIKE TO ADD ANOTHER STUDENT 'Y' or 'N' ", count);
+					get_input("Enter the ID number: ", id);
 					cout << "\t\t-----------------**********-----------------\n" << endl;
 					system("CLS");
-				}
+					if (students.empty()) {
+						cout << "\n\n\t\t------------------PERSONAL INFORMATION------------------\n" << endl;
+						get_input("Enter the First Name: ", firstName);
+						get_input("Enter the last Name: ", lastName);
+						get_input("Enter the Date Of Birth in Format dd/mm/yyyy: ", DOB);
+						get_input("Enter the Gender F for(female) and M for(Male): ", gender);
+						if (gender == "M" || gender == "m") {
+							gen = "Male";
+						}
+						else if (gender == "F" || gender == "f") {
+							gen = "Female";
+						}
+						else {
+							gen = "False";
+						}
+						get_input("Enter the Email: ", email);
+						get_input("Enter the Phone Number in form xxxxxxxxxx", phone);
+						get_input("Enter the Address: ", address);						
+						get_input("Enter the City: ", city);
+						get_input("Enter the Provience: ", provience);
+						get_input("Enter the Postal Code: ", postalCode);
+						cout << "\t\t-----------------**********-----------------\n" << endl;
+
+						system("CLS");
+
+						cout << "\n\n\t\t------------------College Information------------------\n" << endl;
+						get_input("Enter the College Name: ", cName);
+						get_input("Enter the Course: ", course);
+						get_input("Enter the Campus", campus);
+						get_input("Enter the Programme", Program);
+						cout << "\t\t-----------------**********-----------------\n" << endl;
+
+						system("CLS");
+
+						CollegeI college(cName, course, campus, Program, id);
+						colleges.push_back(college);
+						StudentPI student(firstName, lastName, DOB, gen, email, phone, address, city, provience, postalCode, id);
+						students.push_back(student);
+						system("CLS");
+					}
+					else {
+						for (int i = 0; i < students.size(); i++) {
+							if (id != students[i].Get_ID()) {
+								Match = 'N';
+							}
+							else {
+								Match = 'M';
+							}
+						}
+						if (Match == 'M') {
+
+							cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+							cout << "\t\tAlready student exist with ID '" << id << "'." << endl;
+							cout << "\t\tPlease Try Again." << endl;
+							cout << "\t\tPress any key and enter to continue!." << endl;
+							cin >> inpt;
+							cout << "\t\t-----------------**********-----------------\n" << endl;
+							system("CLS");
+						}
+						else {
+							cout << "\n\n\t\t------------------PERSONAL INFORMATION------------------\n" << endl;
+							get_input("Enter the First Name: ", firstName);
+							get_input("Enter the last Name: ", lastName);
+							get_input("Enter the Date Of Birth in Format dd/mm/yyyy: ", DOB);
+							get_input("Enter the Gender F for(female) and M for(Male): ", gender);
+							if (gender == "M" || gender == "m") {
+								gen = "Male";
+							}
+							else if (gender == "F" || gender == "f") {
+								gen = "Female";
+							}
+							else {
+								gen = "False";
+							}
+							get_input("Enter the Email: ", email);
+							get_input("Enter the Phone Number in form xxxxxxxxxx", phone);
+							get_input("Enter the Address: ", address);
+
+							get_input("Enter the City: ", city);
+							get_input("Enter the Provience: ", provience);
+							get_input("Enter the Postal Code: ", postalCode);
+							cout << "\t\t-----------------**********-----------------\n" << endl;
+
+							system("CLS");
+
+							cout << "\n\n\t\t------------------College Information------------------\n" << endl;
+							get_input("Enter the College Name: ", cName);
+							get_input("Enter the Course: ", course);
+							get_input("Enter the Campus", campus);
+							get_input("Enter the Programme", Program);
+							cout << "\t\t-----------------**********-----------------\n" << endl;
+
+							system("CLS");
+
+							CollegeI college(cName, course, campus, Program, id);
+							colleges.push_back(college);
+							StudentPI student(firstName, lastName, DOB, gen, email, phone, address, city, provience, postalCode, id);
+							students.push_back(student);
+							system("CLS");
+						}
+					
+					}
 				system("CLS");
 				break;
-			}
+				}
 			case 2:  
 			{
 				if (!students.empty()) {
@@ -290,12 +354,20 @@ int main() {
 											break;
 										}
 										case 4: {
-											string gender;
+											string gender, gen;
 											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
 											get_input("\t\tEnter the Gender F for(female) and M for(Male): ", gender);
 											cout << "\t\t-----------------**********-----------------\n" << endl;
-
-											students[i].Set_Gender(gender);
+											if (gender == "M" || gender == "m") {
+												gen = "Male";
+											}
+											else if (gender == "F" || gender == "f") {
+												gen = "Female";
+											}
+											else {
+												gen = "False";
+											}
+											students[i].Set_Gender(gen);
 											system("CLS");
 											break;
 										}
@@ -410,81 +482,118 @@ int main() {
 									break;
 								}
 								case 2: {
-									int ct;
-									if (subjectVector.empty()) {
-										ct = 0;
-									}
-									else {
-										ct = subjectVector.size();
-									}
-									if (i == ct) {
-										string subject;
-										vector<string> subjects;
-										char checksub = 'y';
-										while (checksub == 'y' || checksub == 'Y') {
-											cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
-											get_input("\t\tEnter Subject :", subject);
-											cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
-											subjects.push_back(subject);
+										int ct;
+										if (subjectVector.empty()) {
+											ct = 0;
+										}
+										else {
+											ct = subjectVector.size();
+										}
+										if (i == ct) {
+											string subject;
+											vector<string> subjects;
+											char checksub = 'y';
+											while (checksub == 'y' || checksub == 'Y') {
+												cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+												get_input("\t\tEnter the subject : ", subject);
+												cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+												subjects.push_back(subject);
 
-											get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub);
+												get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub);
+												system("CLS");
+											}
+											Subject sub{ subjects, id };
+											subjectVector.push_back(sub);
+										}
+										else {
+											char checksub1 = 'y';
+											string subject1;
+											vector<string> subjects1;
+											while (checksub1 == 'y' || checksub1 == 'Y') {
+												cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
+												get_input("\t\tEnter the subject : ", subject1);
+												cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
+												subjects1.push_back(subject1);
+
+												get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub1);
+												system("CLS");
+											}
+											subjectVector[i].ADD_Subject(subjects1);
 											system("CLS");
 										}
-										Subject sub{ subjects, id };
-										subjectVector.push_back(sub);
-									}
-									else {
-										char checksub1 = 'y';
-										string subject1;
-										vector<string> subjects1;
-										while (checksub1 == 'y' || checksub1 == 'Y') {
-											cout << "\n\n\n\n\n\n\t\t\t\t-----------------**********-----------------\n" << endl;
-											get_input("\t\tEnter Subject :", subject1);
-											cout << "\t\t\t\t-----------------**********-----------------\n" << endl;
-											subjects1.push_back(subject1);
-
-											get_input("WOULD YOU LIKE TO ADD ANOTHER SUBJECT 'Y' or 'N': ", checksub1);
-											system("CLS");
-										}
-										subjectVector[i].ADD_Subject(subjects1);
-										system("CLS");
-									}
 									system("CLS");
 									break;
 								}
 								case 3: {
-									int getinput;
-									cout << "\t\t-----------------*****************-----------------\n" << endl;
-									int n = 0;
-									for (n; n < subjectVector[i].Vector_Size(); n++) {
-										cout << "Press " << n + 1 << ": to change subject: (" << subjectVector[i].Get_Subject(n) << ")" << endl;
-									}
-									cout << "Press " << n + 1 << " Exit: " << endl;
-									cout << "\t\t-----------------*****************-----------------\n" << endl;
-									get_input("\t\tEnter The Input", getinput);
+									if (!subjectVector.empty()) {
+										int getinput;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										int n = 0;
+										for (n; n < subjectVector[i].Vector_Size(); n++) {
+											cout << "Press " << n + 1 << ": to change subject: (" << subjectVector[i].Get_Subject(n) << ")" << endl;
+										}
+										cout << "Press " << n + 1 << " Exit: " << endl;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										get_input("\t\tEnter The Input", getinput);
 
 
-									int j = 0;
-									for (j; j < subjectVector[i].Vector_Size(); j++) {
-										if (getinput == j + 1) {
-											string subject;
-											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-											get_input("\t\tEnter the subject : ", subject);
-											cout << "\t\t-----------------**********-----------------\n" << endl;
-											subjectVector[i].Set_Subject(subject, j);
-											system("CLS");
+										int j = 0;
+										for (j; j < subjectVector[i].Vector_Size(); j++) {
+											if (getinput == j + 1) {
+												string subject;
+												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+												get_input("\t\tEnter the subject : ", subject);
+												cout << "\t\t-----------------**********-----------------\n" << endl;
+												subjectVector[i].Set_Subject(subject, j);
+												system("CLS");
+											}
 										}
 									}
-									if (getinput == j + 1) {
-										cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-										get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu2);
+									else {
 										cout << "\t\t-----------------**********-----------------\n" << endl;
-										system("CLS");
+										cout << "\t\tNo subjects available! Please enter one First!\n" << endl;
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tPress any Key and Enter to continue!", inpt);
 									}
 									system("CLS");
 									break;
 								}
 								case 4: {
+									if (!subjectVector.empty()) {
+										int getinput;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										int n = 0;
+										for (n; n < subjectVector[i].Vector_Size(); n++) {
+											cout << "Press " << n + 1 << ": to delete subject: (" << subjectVector[i].Get_Subject(n) << ")" << endl;
+										}
+										cout << "Press " << n + 1 << " Exit: " << endl;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										get_input("\t\tEnter The Input", getinput);
+
+
+										int j = 0;
+										for (j; j < subjectVector[i].Vector_Size(); j++) {
+											if (getinput == j + 1) {
+												if (!gradeVector.empty()) {
+													if (subjectVector[i].Vector_Size() == gradeVector[i].GradeVector_Size()) {
+														gradeVector[i].Delete_Grade(j);
+													}
+												}
+												subjectVector[i].Delete_Subject(j);
+												system("CLS");
+											}
+										}
+									}
+									else {
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										cout << "\t\tNo subjects available! Please enter one First!\n" << endl;
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tPress any Key and Enter to continue!", inpt);
+									}
+									system("CLS");
+									break; 
+								}
+								case 5: {
 									if (!subjectVector.empty()) {
 										int ct;
 										if (gradeVector.empty()) {
@@ -565,39 +674,41 @@ int main() {
 									}
 									break;
 								}
-								case 5: {
-									int getinput;
-									cout << "\t\t-----------------*****************-----------------\n" << endl;
-									int n = 0;
-									for (n; n < gradeVector[i].GradeVector_Size(); n++) {
-										cout << "\t\tPress " << n + 1 << ": to change Grade: '" <<gradeVector[i].Get_Grade(n) <<"' For Subject: ("<< subjectVector[i].Get_Subject(n) << ")" << endl;
-									}
-									cout << "\t\tPress " << n + 1 << " Exit: " << endl;
-									cout << "\t\t-----------------*****************-----------------\n" << endl;
-									get_input("\t\tEnter The Input", getinput);
+								case 6: {
+									if (!gradeVector.empty()) {
+										int getinput;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										int n = 0;
+										for (n; n < gradeVector[i].GradeVector_Size(); n++) {
+											cout << "\t\tPress " << n + 1 << ": to change Grade: '" << gradeVector[i].Get_Grade(n) << "' For Subject: (" << subjectVector[i].Get_Subject(n) << ")" << endl;
+										}
+										cout << "\t\tPress " << n + 1 << " Exit: " << endl;
+										cout << "\t\t-----------------*****************-----------------\n" << endl;
+										get_input("\t\tEnter The Input", getinput);
 
 
-									int j = 0;
-									for (j; j < gradeVector[i].GradeVector_Size(); j++) {
-										if (getinput == j + 1) {
-											float grade;
-											cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-											get_input("\t\tEnter the grade : ", grade);
-											cout << "\t\t-----------------**********-----------------\n" << endl;
-											gradeVector[i].Set_Gra(grade, j);
-											system("CLS");
+										int j = 0;
+										for (j; j < gradeVector[i].GradeVector_Size(); j++) {
+											if (getinput == j + 1) {
+												float grade;
+												cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
+												get_input("\t\tEnter the grade : ", grade);
+												cout << "\t\t-----------------**********-----------------\n" << endl;
+												gradeVector[i].Set_Gra(grade, j);
+												system("CLS");
+											}
 										}
 									}
-									if (getinput == j + 1) {
-										cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
-										get_input("\t\tDO YOU WANT TO EDIT ANYTHING ELSE 'Y' or 'N'", checkMenu2);
+									else {
 										cout << "\t\t-----------------**********-----------------\n" << endl;
-										system("CLS");
+										cout << "\t\tNo Grades available! Please enter one First!\n" << endl;
+										cout << "\t\t-----------------**********-----------------\n" << endl;
+										get_input("\t\tPress any Key and Enter to continue!", inpt);
 									}
 									system("CLS");
 									break;
 								}
-								case 6: {
+								case 7: {
 									cout << "\t\t------------------Information On " << students[i].Get_FirstName() << "------------------\n" << endl;
 									students[i].OutputStudent();
 									colleges[i].OutputCollege();
@@ -608,11 +719,11 @@ int main() {
 										gradeVector[i].OutputGrade(subjectVector, i);
 									}
 
-									get_input("\n\t\t    Press Y to continue", inpt);
+									get_input("\t\tPress any Key and Enter to continue!", inpt);
 									break;
 									system("CLS");
 								}
-								case 7: {
+								case 8: {
 									cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
 									get_input("\t\tDo You WANT TO GO TO MENU2 'Y' or 'N'", checkMenu2);
 									cout << "\t\t-----------------**********-----------------\n" << endl;
@@ -638,6 +749,36 @@ int main() {
 				break;
 			}
 			case 3: {
+				if (!students.empty()) {
+					int getinput;
+					cout << "\t\t-----------------*****************-----------------\n" << endl;
+					int n = 0;
+					for (n; n < students.size(); n++) {
+						cout << "Press " << n + 1 << ": to delete subject: (" << students[n].Get_ID() << ")" << endl;
+					}
+					cout << "Press " << n + 1 << " Exit: " << endl;
+					cout << "\t\t-----------------*****************-----------------\n" << endl;
+					get_input("\t\tEnter The Input", getinput);
+
+
+					int j = 0;
+					for (j; j < students.size(); j++) {
+						if (getinput == j + 1) {
+							students.erase(students.begin() + j);
+							system("CLS");
+						}
+					}
+				}
+				else {
+					cout << "\t\t-----------------**********-----------------\n" << endl;
+					cout << "\t\tNo students available! Please enter one First!\n" << endl;
+					cout << "\t\t-----------------**********-----------------\n" << endl;
+					get_input("\t\tPress any Key and Enter to continue!", inpt);
+				}
+				system("CLS");
+				break;
+			}
+			case 4: {
 				cout << "\n\n\t\t-----------------**********-----------------\n" << endl;
 				get_input("\t\tDO YOU WANT TO GO TO MENU1 'Y' or 'N'", Menu1);
 				cout << "\t\t-----------------**********-----------------\n" << endl;
